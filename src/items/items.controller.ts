@@ -6,15 +6,15 @@ import { IItem } from './interfaces/item.interface';
 @Controller('items')
 export class ItemsController {
     constructor(private readonly itemsService: ItemsService) {}
-    
+
     @Get()
-    findAll(): IItem[] {
+    async findAll(): Promise<IItem[]> {
         return this.itemsService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param() param){
-        return `Item: ${param.id}`
+    async findOne(@Param() param): Promise<IItem>{
+        return this.itemsService.findOne(param.id);
     }
 
     @Post()
