@@ -18,17 +18,17 @@ export class ItemsController {
     }
 
     @Post()
-    create(@Body() createItemDto: CreateItemDto): string {
-        return `Name: ${createItemDto.name}, Desc: ${createItemDto.description}`;
+    create(@Body() createItemDto: CreateItemDto): Promise<IItem> {
+        return this.itemsService.create(createItemDto);
     }
 
     @Delete(':id')
-    delete(@Param() param) {
-        return `deleted ${param.id}`
+    delete(@Param() param): Promise<IItem> {
+        return this.itemsService.delete(param.id);
     }
 
     @Put(':id')
-    update(@Body() updateItemDto: CreateItemDto, @Param() param): string {
-        return `updated ${param.id} - name: ${updateItemDto.name}`;
+    update(@Body() updateItemDto: CreateItemDto, @Param() param): Promise<IItem> {
+        return this.itemsService.update(param.id, updateItemDto);
     }
 }

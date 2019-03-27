@@ -15,4 +15,17 @@ export class ItemsService {
     async findOne(id: string): Promise<IItem> {
         return await this.itemModel.findOne({ _id: id });
     }
+
+    async create(item: IItem): Promise<IItem> {
+        const newItem = new this.itemModel(item);
+        return await newItem.save();
+    }
+
+    async delete(id: string): Promise<IItem> {
+        return await this.itemModel.findByIdAndRemove(id);
+    }
+
+    async update(id: string, item: IItem): Promise<IItem> {
+        return await this.itemModel.findByIdAndUpdate(id, item, { new: true });
+    }
 }
